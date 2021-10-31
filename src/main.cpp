@@ -40,7 +40,7 @@ void write_word(const std::string& word)
 	std::system("xdotool key Return");
 }
 
-void write_words(const BoggleBoard& board, unsigned min_word_length)
+void find_words(const BoggleBoard& board, unsigned min_word_length, bool write)
 {
 	std::ifstream dict_file(DICTIONARY_FILE);
 	std::string word;
@@ -53,7 +53,12 @@ void write_words(const BoggleBoard& board, unsigned min_word_length)
 
 		if (board.contains(word))
 		{
-			write_word(word);
+			if (write)
+			{
+				write_word(word);
+			}
+			
+			printf("%s\n", word.c_str());
 
 			// wait for 50ms
 			std::this_thread::sleep_for(std::chrono::milliseconds(50));
@@ -67,12 +72,19 @@ int main()
 	unsigned min_word_length;
 	std::cin >> min_word_length;
 
+	printf("Write the words (0 = no, 1 = yes)? ");
+	bool write;
+	std::cin >> write;
+
 	BoggleBoard board = initialize_board();
 
-	printf("Now wait for 5 seconds...\n");
-	std::this_thread::sleep_for(std::chrono::seconds(5));
+	if (write)
+	{
+		printf("Now wait for 5 seconds...\n");
+		std::this_thread::sleep_for(std::chrono::seconds(5));
+	}
 
-	write_words(board, min_word_length);
+	find_words(board, min_word_length, write);
 
 	return 0;
 }
