@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdio.h>
+#include <stdlib.h>
 #include <thread>
 
 #include "BoggleBoard.hpp"
@@ -37,7 +38,17 @@ BoggleBoard initialize_board()
 	return BoggleBoard(board);
 }
 
-void print_words(const BoggleBoard& board, unsigned min_word_length)
+void write_word(const std::string& word)
+{
+	for (char c : word)
+	{
+		const char * command = (std::string("xdotool key ") + c).c_str();
+		std::system(command);
+	}
+	std::system("xdotool key Return");
+}
+
+void write_words(const BoggleBoard& board, unsigned min_word_length)
 {
 	std::ifstream dict_file(DICTIONARY_FILE);
 	std::string word;
@@ -50,7 +61,10 @@ void print_words(const BoggleBoard& board, unsigned min_word_length)
 
 		if (board.contains(word))
 		{
-			printf("%s\n", word.c_str());
+			write_word(word);
+
+			// wait for 50ms
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
 	}
 }
@@ -66,7 +80,7 @@ int main()
 	printf("Now wait for 5 seconds...\n");
 	std::this_thread::sleep_for(std::chrono::seconds(5));
 
-	print_words(board, min_word_length);
+	write_words(board, min_word_length);
 
 	return 0;
 }
