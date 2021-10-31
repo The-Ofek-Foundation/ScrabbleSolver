@@ -9,14 +9,6 @@
 
 static const char* DICTIONARY_FILE = "../sowpods.txt";
 
-// class BoggleBoard
-// {
-
-// public:
-// 	BoggleBoard(const std::vector<std::vector<char>>& board);
-// 	bool contains(const std::string& word) const noexcept;
-// };
-
 BoggleBoard initialize_board()
 {
 	unsigned rows, cols;
