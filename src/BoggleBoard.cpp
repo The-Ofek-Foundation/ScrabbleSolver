@@ -16,8 +16,13 @@ BoggleBoard::BoggleBoard(const std::vector<std::vector<char>>& board)
 
 bool BoggleBoard::contains(const std::string& word) const noexcept
 {
-	for (const auto& square : _starting_squares[word[0u] - 'a']) {
-		if (contains(word, square / _board[0u].size(), square % _board[0u].size(), 1u)) {
+	for (const auto& square : _starting_squares[word[0u] - 'a'])
+	{
+		unsigned row = square / _board[0].size();
+		unsigned col = square % _board[0].size();
+		unsigned offset = word[0u] == 'q' ? 2u : 1u;
+		if (contains(word, row, col, offset))
+		{
 			return true;
 		}
 	}
