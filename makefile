@@ -2,10 +2,10 @@ SOURCE_CPP = src/BoggleBoard.cpp
 
 all:
 	mkdir -p bin/
-	g++-11 --std=c++20 -o bin/main src/main.cpp ${SOURCE_CPP}
+	g++-11 --std=c++17 -o bin/main src/main.cpp ${SOURCE_CPP} -O3 -Wall -Werror
 
 make run: all
-	./bin/main
+	cd bin/ && ./main
 
 clean:
 	rm -rvf bin/

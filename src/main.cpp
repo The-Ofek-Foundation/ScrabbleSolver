@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <thread>
 
 #include "BoggleBoard.hpp"
@@ -35,9 +36,16 @@ void write_word(const std::string& word)
 	for (char c : word)
 	{
 		const char * command = (std::string("xdotool key ") + c).c_str();
-		std::system(command);
+		if (std::system(command) < 0)
+		{
+			std::cerr << "Error: " << strerror(errno) << std::endl;
+		}
 	}
-	std::system("xdotool key Return");
+	
+	if (std::system("xdotool key Return") < 0)
+	{
+		std::cerr << "Error: " << strerror(errno) << std::endl;
+	}
 }
 
 void find_words(const BoggleBoard& board, unsigned min_word_length, bool write)
@@ -60,7 +68,6 @@ void find_words(const BoggleBoard& board, unsigned min_word_length, bool write)
 			
 			printf("%s\n", word.c_str());
 
-			// wait for 50ms
 			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
 	}

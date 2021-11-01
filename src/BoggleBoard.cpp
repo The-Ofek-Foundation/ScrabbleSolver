@@ -7,8 +7,10 @@
 BoggleBoard::BoggleBoard(const std::vector<std::vector<char>>& board)
 	: _board(board), _visited(_board.size(), std::vector<bool>(_board[0].size(), false))
 {
-	for (unsigned row = 0u; row < _board.size(); ++row) {
-		for (unsigned col = 0u; col < _board[row].size(); ++col) {
+	for (unsigned row = 0u; row < _board.size(); ++row)
+	{
+		for (unsigned col = 0u; col < _board[row].size(); ++col)
+		{
 			_starting_squares[_board[row][col] - 'a'].emplace_back(row * _board[row].size() + col);
 		}
 	}
@@ -21,6 +23,7 @@ bool BoggleBoard::contains(const std::string& word) const noexcept
 		unsigned row = square / _board[0].size();
 		unsigned col = square % _board[0].size();
 		unsigned offset = word[0u] == 'q' ? 2u : 1u;
+
 		if (contains(word, row, col, offset))
 		{
 			return true;
@@ -34,7 +37,7 @@ bool BoggleBoard::contains(const std::string& word, unsigned row, unsigned col, 
 {
 	_visited[row][col] = true;
 
-	for (const auto& neighbor : _neighbors)
+	for (const auto& neighbor : NEIGHBORS)
 	{
 		unsigned next_row = row + neighbor[0u];
 		unsigned next_col = col + neighbor[1u];

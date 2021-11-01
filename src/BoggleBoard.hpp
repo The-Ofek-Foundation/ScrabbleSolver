@@ -15,8 +15,8 @@ public:
 private:
 	const std::vector<std::vector<char>> _board;
 	mutable std::vector<std::vector<bool>> _visited;
-	std::array<std::vector<unsigned>, 26> _starting_squares;
-	constexpr static std::array<std::array<int, 2>, 8> _neighbors = {
+	std::array<std::vector<unsigned>, 26u> _starting_squares;
+	constexpr static std::array<std::array<int, 2u>, 8u> NEIGHBORS = {
 		{{0, 1}, {1, 1}, {1, 0}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}, {-1, 1}}
 	};
 
