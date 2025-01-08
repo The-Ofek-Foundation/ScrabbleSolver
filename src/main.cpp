@@ -65,7 +65,7 @@ void find_words(const BoggleBoard& board, unsigned min_word_length, bool write)
 			{
 				write_word(word);
 			}
-			
+
 			printf("%s\n", word.c_str());
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(50));
